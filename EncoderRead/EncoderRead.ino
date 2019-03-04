@@ -27,13 +27,13 @@
 #define MAX_EFFECT_VAL 180
 
 // Encoder definitions and encoder variables
-Encoder InstrVertEnc(PIN_INSTR_VERT_A, PIN_INSTR_VERT_B);
+Encoder instrVertEnc(PIN_INSTR_VERT_A, PIN_INSTR_VERT_B);
 long instr_enc_vert_pos = 0;
-Encoder InstrHorzEnc(PIN_INSTR_HORZ_A, PIN_INSTR_HORZ_B);
+Encoder instrHorzEnc(PIN_INSTR_HORZ_A, PIN_INSTR_HORZ_B);
 long instr_enc_horz_pos = 0;
-Encoder EffectVertEnc(PIN_EFFECT_VERT_A, PIN_EFFECT_VERT_B);
+Encoder effectVertEnc(PIN_EFFECT_VERT_A, PIN_EFFECT_VERT_B);
 long effect_enc_vert_pos = 0;
-Encoder EffectHorzEnc(PIN_EFFECT_HORZ_A, PIN_EFFECT_HORZ_B);
+Encoder effectHorzEnc(PIN_EFFECT_HORZ_A, PIN_EFFECT_HORZ_B);
 long effect_enc_horz_pos = 0;
 
 //------------------------------------- Main Code Below ----------------------------------------------
