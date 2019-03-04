@@ -1,4 +1,4 @@
-# CS250A
+# MUSIC250A [Project Title Here]
 Final Project for Physical Interaction Design for Computer Music
 
 
