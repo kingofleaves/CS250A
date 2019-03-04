@@ -45,7 +45,8 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-
+  updateAllEncoders();
+  sendMidiMessage();
 }
 
 void sendMidiMessage() {
@@ -56,6 +57,23 @@ void sendMidiMessage() {
   int effect_horz_val = map(effect_enc_horz_pos, MIN_ENC_POS, MAX_ENC_POS, MIN_EFFECT_VAL, MAX_EFFECT_VAL);
 
   // TODO: use these values to do something.
+
+//  Serial.print("instrument control - Vertical: ");
+//  Serial.println(instr_vert_val);
+//  Serial.print("instrument control - Horizontal: ");
+//  Serial.println(instr_horz_val);
+//  Serial.print("effect control - Vertical: ");
+//  Serial.println(effect_vert_val);
+//  Serial.print("effect control - Horizontal: ");
+//  Serial.println(effect_horz_val);
+
+}
+
+void updateAllEncoders(){
+  updateEncoderPosition(instrVertEnc, instr_enc_vert_pos);
+  updateEncoderPosition(instrHorzEnc, instr_enc_horz_pos);
+  updateEncoderPosition(effectVertEnc, effect_enc_vert_pos);
+  updateEncoderPosition(effectHorzEnc, effect_enc_horz_pos);
 }
 
 void updateEncoderPosition(Encoder curr_encoder, long &curr_enc_pos) {
