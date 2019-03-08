@@ -11,7 +11,7 @@
 //------------------------------------- Main Code Below ----------------------------------------------
 
 
-void setup(uint16_t num_encoders, uint16_t *encoder_pins){
+void TrackballMIDIController::setup(uint16_t num_encoders, uint16_t *encoder_pins){
 // encoder_pins should contain num_encoders * 2 elements;
   _encoder_array = new Encoder*[num_encoders];
   _encoder_positions = new uint32_t[num_encoders];
@@ -22,13 +22,14 @@ void setup(uint16_t num_encoders, uint16_t *encoder_pins){
   _num_encoders = num_encoders;
 }
 
-void updateAllEncoders(){
-  for (uint16_t encoder_index = 0; encoder_index < _num_encoders; encoder_index++) {
-    updateEncoderPosition(encoder_index);
-  }
+
+void TrackballMIDIController::update() {
+  updateAllColorValues();
+  updateAllEncoders();
 }
 
-void sendMidiMessage() {
+
+void TrackballMIDIController::sendMidiMessage() {
   // map encoder counts to respective values
 // TODO: clean up this section - hasn't been updated since refactoring into class
   
@@ -52,9 +53,39 @@ void sendMidiMessage() {
 
 }
 
-void updateEncoderPosition(uint16_t encoder_index) {
-//
+
+void TrackballMIDIController::updateAllEncoders(){
+
+  for (uint16_t encoder_index = 0; encoder_index < _num_encoders; encoder_index++) {
+    updateEncoderPosition(encoder_index);
+  }
+}
+
+
+void TrackballMIDIController::updateAllColorValues() {
+
+  for (uint16_t color_sensor_index = 0; color_sensor_index < _num_color_sensors; color_sensor_index++) {
+    updateColorValue(color_sensor_index);
+  }
+}
+
+
+void TrackballMIDIController::updateColorValue(uint16_t color_sensor_index) {
+// Updates color_values array with new data from the specified color sensor.
+
+  curr_color_value_loc = _color_values + color_sensor_index * 4;
+  _color_sensor_array[color_sensor_index]->getRawData(
+    curr_color_value_loc, 
+    curr_color_value_loc+1, 
+    curr_color_value_loc+2, 
+    curr_color_value_loc+3);
+
+}
+
+
+void TrackballMIDIController::updateEncoderPosition(uint16_t encoder_index) {
 // Updates the enc_pos variable with current encoder position.
+
   uint32_t new_enc_pos = _encoder_array[encoder_index]->read();
   if (new_enc_pos != _encoder_positions[encoder_index]) {
     // update encoder position if it changed
@@ -66,7 +97,8 @@ void updateEncoderPosition(uint16_t encoder_index) {
   
 }
 
-void clampEncoderPosition(uint16_t encoder_index) {
+
+void TrackballMIDIController::clampEncoderPosition(uint16_t encoder_index) {
 // clamp encoder position between MAX_ENC_POS and MIN_ENC_POS
 
   if (_encoder_positions[encoder_index] > MAX_ENC_POS){
@@ -79,7 +111,8 @@ void clampEncoderPosition(uint16_t encoder_index) {
   }
 }
 
-void cleanup(){
+
+void TrackballMIDIController::cleanup(){
   // TODO: delete all the memory allocated in setup()
   
 }
