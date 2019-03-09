@@ -6,14 +6,19 @@
 #define _TRACKBALL_MIDI_CONTROLLER_H
 
 // Encoder max and min values (2 counts per detent, 30 detents => 60 counts per revolution
-#define MAX_ENC_POS 180
-#define MIN_ENC_POS -180
+#define MAX_ENC_POS 64
+#define MIN_ENC_POS -64
 
 // min and max values for scaled instrument and effect values (after mapping from encoder raw counts)
 #define MIN_INSTR_VAL 0
 #define MAX_INSTR_VAL 127
 #define MIN_EFFECT_VAL 0
 #define MAX_EFFECT_VAL 127
+
+// CC definitions
+#define AUSTEN_CC 25
+#define SAL_CC 26
+#define YE_CC 27
 
 class TrackballMIDIController {
 public:
@@ -36,7 +41,7 @@ public:
 
 private:
 
-  bool state_changed;
+  bool *state_changed;
   uint16_t sal_cc;
   uint16_t austen_cc;
   uint16_t ye_cc;

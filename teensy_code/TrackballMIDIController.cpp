@@ -23,9 +23,11 @@ void TrackballMIDIController::setup(uint16_t num_encoders, uint16_t *encoder_pin
   }
   _num_encoders = num_encoders;
 
-  austen_cc = 0;
-  sal_cc = 1;
-  ye_cc = 2;
+  state_changed = new bool[num_encoders];
+
+  austen_cc = AUSTEN_CC;
+  sal_cc = SAL_CC;
+  ye_cc = YE_CC;
 }
 
 
@@ -39,32 +41,15 @@ void TrackballMIDIController::sendMidiMessage() {
   // map encoder counts to respective values
   // TODO: clean up this section - hasn't been updated since refactoring into class
 
-  if (!state_changed) return;
-  state_changed = false;
-  
-  // for (uint16_t encoder_index = 0; encoder_index < _num_encoders; encoder_index++) {
-  //   int encoder_val = map(_encoder_positions[encoder_index], MIN_ENC_POS, MAX_ENC_POS, MIN_INSTR_VAL, MAX_INSTR_VAL);    
-  // } // TODO: potentially use this template in the future for handling all encoder value mapping in a for loop
-  
-  int instr_vert_val = map(_encoder_positions[0], MIN_ENC_POS, MAX_ENC_POS, MIN_INSTR_VAL, MAX_INSTR_VAL);
-  int instr_horz_val = map(_encoder_positions[1], MIN_ENC_POS, MAX_ENC_POS, MIN_INSTR_VAL, MAX_INSTR_VAL);
-  
-  // int effect_vert_val = map(effect_enc_vert_pos, MIN_ENC_POS, MAX_ENC_POS, MIN_EFFECT_VAL, MAX_EFFECT_VAL);
-  // int effect_horz_val = map(effect_enc_horz_pos, MIN_ENC_POS, MAX_ENC_POS, MIN_EFFECT_VAL, MAX_EFFECT_VAL);
+  for (int encoder_index = 0; encoder_index< _num_encoders; encoder_index++) {
+    if (!state_changed[encoder_index]) return;
+    state_changed[encoder_index] = false;
 
-  // TODO: use these values to do something.
-
-  //  Serial.print("instrument control - Vertical: ");
-  //  Serial.println(instr_vert_val);
-  //  Serial.print("instrument control - Horizontal: ");
-  //  Serial.println(instr_horz_val);
-  //  Serial.print("effect control - Vertical: ");
-  //  Serial.println(effect_vert_val);
-  //  Serial.print("effect control - Horizontal: ");
-  //  Serial.println(effect_horz_val);
-
-  usbMIDI.sendControlChange(austen_cc, instr_vert_val, 0);
-  usbMIDI.sendControlChange(sal_cc, instr_horz_val, 0); 
+    int mapped_val = map(_encoder_positions[encoder_index], MIN_ENC_POS, MAX_ENC_POS, MIN_INSTR_VAL, MAX_INSTR_VAL);
+    
+    // usbMIDI.sendControlChange(cc[encoder_index], mapped_val, 0); TODO: use this when I actually define cc[] 
+    usbMIDI.sendControlChange(25+encoder_index, mapped_val, 0);
+  }
 
 }
 
@@ -104,11 +89,11 @@ void TrackballMIDIController::updateEncoderPosition(uint16_t encoder_index) {
   int32_t new_enc_pos = _encoder_array[encoder_index]->read();
   if (new_enc_pos != _encoder_positions[encoder_index]) {
     // update encoder position if it changed
-    Serial.print("Current Position: ");
-    Serial.println(new_enc_pos);
+//    Serial.print("Current Position: ");
+//    Serial.println(new_enc_pos);
     _encoder_positions[encoder_index] = new_enc_pos;
     clampEncoderPosition(encoder_index);
-    state_changed = true;
+    state_changed[encoder_index] = true;
   }
 
 }
