@@ -1,9 +1,9 @@
+#ifndef _TRACKBALL_MIDI_CONTROLLER_H
+#define _TRACKBALL_MIDI_CONTROLLER_H
+
 #include <Wire.h>
 #include <Encoder.h>
 #include "Adafruit_TCS34725.h"
-
-#ifndef _TRACKBALL_MIDI_CONTROLLER_H
-#define _TRACKBALL_MIDI_CONTROLLER_H
 
 // Encoder max and min values (2 counts per detent, 30 detents => 60 counts per revolution
 #define MAX_ENC_POS 64
