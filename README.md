@@ -4,11 +4,12 @@ Final Project for Physical Interaction Design for Computer Music
 
 ## Dependencies
 ### Color Sensors
-~Download Adafruit_TCS34725 From Arduino IDE (Tools -> Manage Libraries)~
+Download Adafruit_TCS34725 From Arduino IDE (Tools -> Manage Libraries)
 
-To connect multiple TCS34725 Color Sensors to the same microprocessor, we used: 
-https://github.com/Fire7/Adafruit_TCS34725_SoftI2C
-Which also requires: https://github.com/Fire7/SoftwareWire
-
-The library files (.h and .cpp, as of March 9, 2019) are included in this repository too.
+Since we are using 3 hardware SDA/SCL ports on the teensy, 
+  go into Adafruit_TCS34725.h:
+    replace *<Wire.h>* with *<i2c_t3.h>*
+    find and replace all *TwoWire* with *i2c_t3*
+  go into Adafruit_TCS34725.cpp:
+    find and replace all *TwoWire* with *i2c_t3*
 
