@@ -192,7 +192,7 @@ boolean Adafruit_TCS34725::begin(uint8_t addr) {
  *          The Wire object
  *  @return True if initialization was successful, otherwise false.
  */
-boolean Adafruit_TCS34725::begin(uint8_t addr, TwoWire *theWire) {
+boolean Adafruit_TCS34725::begin(uint8_t addr, i2c_t3 *theWire) {
   _i2caddr = addr;
   _wire = theWire;
 
