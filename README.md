@@ -13,3 +13,4 @@ Since we are using 3 hardware SDA/SCL ports on the teensy,
   go into Adafruit_TCS34725.cpp:
     find and replace all *TwoWire* with *i2c_t3*
 
+A copy of the modified Adafruit_TCS34725.h and .cpp files are included in this repository
