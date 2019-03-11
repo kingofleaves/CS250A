@@ -20,8 +20,9 @@ void CustomEncoder::setup(uint16_t encoder_pinA, uint16_t encoder_pinB) {
 }
 
 
-void CustomEncoder::update() {
+bool CustomEncoder::update() {
   int32_t new_enc_pos = enc->read();
+  state_changed = false;
   if (new_enc_pos != last_enc_pos) {
     // update encoder position if it changed
 //    Serial.print("Current Position: ");
@@ -30,6 +31,7 @@ void CustomEncoder::update() {
     clampEncoderPosition();
     state_changed = true;
   }
+  return state_changed;
 }
 
   int32_t CustomEncoder::getPosition() {

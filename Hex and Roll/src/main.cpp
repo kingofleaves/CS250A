@@ -8,7 +8,7 @@ LEDController leds;
 
 unsigned long curTime = 0;
 unsigned long lastMidi = 0;
-unsigned long midiTimer = 300;
+unsigned long midiTimer = 0;
 
 uint16_t encoder_pin_array0[8] = {9,10,11,12, 14,15,16,17};
 uint16_t encoder_pin_array1[8] = {20,21,22,23, 33,34,35,36};
@@ -27,7 +27,7 @@ void loop() {
     controller.sendMidiMessage();
     lastMidi = curTime;
   }
-  leds.setColorUpTo(156, CRGB::Red);
-  leds.setBrightness(10);
+  leds.setColorUpTo(156,CRGB(230,128,10));
+  leds.setBrightness(50);
   leds.update();
 }

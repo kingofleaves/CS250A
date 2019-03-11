@@ -27,6 +27,8 @@ private:
 
   TrackballUnit units[NUM_UNITS];
 
+  TrackballUnit::UnitData prev_data[NUM_UNITS];
+
   uint8_t cc[NUM_UNITS] = {10, 20, 30};
   
   void cleanup();

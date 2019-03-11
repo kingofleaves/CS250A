@@ -5,8 +5,8 @@
 #include "Adafruit_TCS34725.h"
 
 // Encoder max and min values (2 counts per detent, 30 detents => 60 counts per revolution
-#define MAX_ENC_POS 63
-#define MIN_ENC_POS -63
+#define MAX_ENC_POS 31
+#define MIN_ENC_POS -31
 
 class CustomEncoder {
 public:
@@ -16,7 +16,7 @@ public:
 
   Encoder *enc;
   void setup(uint16_t encoder_pinA, uint16_t encoder_pinB);  // encoder_pins should contain num_encoders * 2 elements;
-  void update();
+  bool update();
   int32_t getPosition();
 
 private:

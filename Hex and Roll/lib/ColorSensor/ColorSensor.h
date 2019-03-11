@@ -23,8 +23,8 @@ public:
 
 private:
     Adafruit_TCS34725 *tcs;
-    tcs34725IntegrationTime_t _int_time = TCS34725_INTEGRATIONTIME_700MS;
-    tcs34725Gain_t _gain = TCS34725_GAIN_1X;
+    tcs34725IntegrationTime_t _int_time = TCS34725_INTEGRATIONTIME_24MS;
+    tcs34725Gain_t _gain = TCS34725_GAIN_16X;
     i2c_t3 *_wire;
     uint16_t r, g, b, c;
     COLOR current_color;
