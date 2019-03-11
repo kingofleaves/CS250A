@@ -26,7 +26,10 @@ void setup() {
 
 void loop() {
   curTime=millis();
+  // Serial.println("-----------------------------------------");
   controller.update();
+  // delay(1000);
+
   if(curTime>midiTimer+lastMidi) {
     controller.sendMidiMessage();
     lastMidi = curTime;

@@ -40,13 +40,17 @@
         if (temp < 3800) {
             current_color = YELLOW;
         }
-        else if (temp<5600&&temp>4000) {
-            current_color = RED;
+        // else if (temp<5800&&temp>4000) {
+        //     current_color = RED;
+        // }
+        // else if (temp<6900&&temp>5800) {
+        //     current_color = GREEN;
+        // }
+        else if (temp<7200&&temp>4000) {
+            if (g > 1.1*r) current_color = GREEN;
+            else current_color = RED;
         }
-        else if (temp<6900&&temp>5600) {
-            current_color = GREEN;
-        }
-        else if (temp>7000) {
+        else if (temp>7350) {
             current_color = BLUE;
         }
         else {
