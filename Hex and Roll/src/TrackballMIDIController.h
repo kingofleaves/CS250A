@@ -21,6 +21,7 @@ public:
   void setup(uint16_t *encoder_pins0, uint16_t *encoder_pins1, uint16_t *encoder_pins2); 
   void update();
   void sendMidiMessage();
+  TrackballUnit::UnitData *getData();
 
 
 private:
