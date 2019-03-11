@@ -35,10 +35,20 @@ void TrackballMIDIController::sendMidiMessage() {
   // map encoder counts to respective values
   // TODO: clean up this section - hasn't been updated since refactoring into class
 
+  Serial.println("in sendmidimessage");
+
   for (int unit_index = 0; unit_index < NUM_UNITS; unit_index++) {
     TrackballUnit::UnitData curr_data = units[unit_index].getData();
     int32_t final_value = curr_data.encoder_positions[0][0] + curr_data.encoder_positions[0][1] + curr_data.encoder_positions[1][0] + curr_data.encoder_positions[1][1];
     usbMIDI.sendControlChange(cc[unit_index], final_value, 0);
+    // Serial.print(curr_data.encoder_positions[0][0]);
+    // Serial.print(", ");
+    // Serial.print(curr_data.encoder_positions[0][1]);
+    // Serial.print(", ");
+    // Serial.print(curr_data.encoder_positions[1][0]);
+    // Serial.print(", ");
+    // Serial.println(curr_data.encoder_positions[1][1]);
+    
   }
 
 }
