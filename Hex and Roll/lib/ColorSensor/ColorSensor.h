@@ -26,7 +26,7 @@ private:
     tcs34725IntegrationTime_t _int_time = TCS34725_INTEGRATIONTIME_24MS;
     tcs34725Gain_t _gain = TCS34725_GAIN_16X;
     i2c_t3 *_wire;
-    uint16_t r, g, b, c;
+    uint16_t r, g, b, c, temp;
     COLOR current_color;
     int threshold_multiplier;
 
