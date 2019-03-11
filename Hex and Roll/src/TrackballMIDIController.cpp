@@ -127,6 +127,11 @@ void TrackballMIDIController::sendMidiMessage() {
 
 }
 
+TrackballUnit::UnitData *TrackballMIDIController::getData() {
+  return prev_data;
+}
+
+
 void TrackballMIDIController::cleanup() {
   // TODO: delete all the memory allocated in setup()
 }
