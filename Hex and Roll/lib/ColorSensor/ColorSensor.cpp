@@ -23,32 +23,34 @@
 
     void ColorSensor::update() {
         tcs->getRawData(&r, &g, &b, &c);
-
+        temp = tcs->calculateColorTemperature(r,g,b);
         // Serial.print("r: ");
         // Serial.print(r);
         // Serial.print(", g: ");
         // Serial.print(g);
-        // Serial.print(". b: ");
+        // Serial.print(", b: ");
         // Serial.print(b);
-        // Serial.print("c: ");
+        // Serial.print(", c: ");
         // Serial.print(c);
+        // Serial.print(", Temp: ");
+        // Serial.print(temp);
         // Serial.println();
                 
 
-        if (c > 600) {
-            current_color = NONE;
-        }
-        else if (g > pow(threshold_multiplier, 2)*r && g > threshold_multiplier*b) {
-            current_color = GREEN;
-        }
-        else if (r > g && r > threshold_multiplier*b && g > threshold_multiplier*b) {
+        if (temp < 3800) {
             current_color = YELLOW;
         }
-        else if (b > pow(threshold_multiplier, 2)*r) {
+        else if (temp<5600&&temp>4000) {
+            current_color = RED;
+        }
+        else if (temp<6900&&temp>5600) {
+            current_color = GREEN;
+        }
+        else if (temp>7000) {
             current_color = BLUE;
         }
         else {
-            current_color = RED;
+            current_color = current_color;
         }
 
     }
