@@ -18,7 +18,22 @@ void LEDController::setColorUpTo(int end_led, CRGB color) {
     }
 }
 
-void LEDController::setColorForBallCombination(CRGB color1, CRGB color2, CRGB color3) {
+void LEDController::setColorForBallCombination(CRGB color1, CRGB color2, CRGB color3, CRGB color4, CRGB color5, CRGB color6) {
+    for (int led_index = 0; led_index < NUM_LEDS; led_index++) {
+        if (led_index < END_LED_1) {
+            leds_array[led_index] = color1;
+        } else if (led_index < END_LED_2) {
+            leds_array[led_index] = color2;
+        } else if (led_index < END_LED_3) {
+            leds_array[led_index] = color3;
+        } else if (led_index < END_LED_4) {
+            leds_array[led_index] = color4;
+        } else if (led_index < END_LED_5) {
+            leds_array[led_index] = color5;
+        } else if (led_index < END_LED_6) {
+            leds_array[led_index] = color6;
+        }
+    }
 }
 
 void LEDController::setBrightness(int brightness) {
