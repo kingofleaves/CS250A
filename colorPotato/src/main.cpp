@@ -11,11 +11,11 @@ void setup() {
 void loop() {
   for (int i = 0; i < NUM_LEDS; i++) {
     int j = abs(i*2 - NUM_LEDS);
-	  leds[i] = CRGB(255, (NUM_LEDS - j)*2, (NUM_LEDS - j)*2); FastLED.show();
+	  leds[i] = CRGB(255, (NUM_LEDS - j)*0, (NUM_LEDS - j)*2); FastLED.show();
   }
   delay(100);
   for (int i = 0; i < NUM_LEDS; i++) { 
-	  leds[i] = CRGB::Black; FastLED.show(); 
+	  //leds[i] = CRGB::Black; FastLED.show(); 
   }
   delay(100);
 }

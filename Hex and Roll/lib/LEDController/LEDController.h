@@ -16,6 +16,7 @@ void update(); // call in every loop you want to update the LEDs in.
 
 void setColorAllModules(CRGB color);
 void setColorOneModule(int module_index, CRGB color);
+void LEDController::setColorForBallCombination(CRGB color1, CRGB color2, CRGB color3);
 
 private:
 CRGB leds_array[NUM_MODULES][NUM_LEDS];

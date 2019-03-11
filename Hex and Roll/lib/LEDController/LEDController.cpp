@@ -23,6 +23,10 @@ void LEDController::setColorOneModule(int module_index, CRGB color) {
     }
 }
 
+void LEDController::setColorForBallCombination(CRGB color1, CRGB color2, CRGB color3) {
+    
+}
+
 void LEDController::cleanup() {
     // TODO: write this if required
 }
