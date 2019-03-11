@@ -67,6 +67,6 @@ void setLedsToBalls() {
   leds.setColorForBallCombination(color_array[0], CRGB(230,128,10), color_array[2], CRGB(230,128,10), color_array[1], CRGB(230,128,10));
   // leds.setColorUpTo(156,CRGB(230,128,10));
   
-  leds.setBrightness(50);
+  leds.setBrightness(100);
   leds.update();
 }
