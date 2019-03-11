@@ -5,16 +5,14 @@
 
 #define NUM_UNITS 3
 
+// pin definitions
+#define LED_CS_PIN 2
+
 // min and max values for scaled instrument and effect values (after mapping from encoder raw counts)
 #define MIN_INSTR_VAL 0
 #define MAX_INSTR_VAL 127
 #define MIN_EFFECT_VAL 0
 #define MAX_EFFECT_VAL 127
-
-// CC definitions
-#define AUSTEN_CC 25
-#define SAL_CC 26
-#define YE_CC 27
 
 class TrackballMIDIController {
 public:

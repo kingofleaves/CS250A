@@ -13,7 +13,7 @@
 #include "TrackballUnit.h"
 
 
-void TrackballUnit::setup(uint16_t *encoder_pins) {
+void TrackballUnit::setup(uint16_t *encoder_pins, i2c_t3 *theWire) {
     // encoder_pins should contain num_encoders * 2 elements;
     for (int ball_index = 0; ball_index < NUM_BALLS; ball_index++) {
         for (int encoder_index = 0; encoder_index < NUM_ENCODERS_PER_BALL; encoder_index++) {
@@ -21,6 +21,7 @@ void TrackballUnit::setup(uint16_t *encoder_pins) {
             encoder_array[ball_index][encoder_index].setup(encoder_pins[encoder_first_pin_pos], encoder_pins[encoder_first_pin_pos + 1]);
         }
     }
+    cs.setup(theWire);
 
     // Initialize class variables
     for (int ball_index = 0; ball_index < NUM_BALLS; ball_index++) {
@@ -59,6 +60,7 @@ void TrackballUnit::updateAllEncoders() {
 
 
 void TrackballUnit::getColor() {
+    cs.update();
     last_data.color_value = cs.getColor();
 }
 

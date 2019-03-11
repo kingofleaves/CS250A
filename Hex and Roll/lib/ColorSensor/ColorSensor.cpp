@@ -24,6 +24,17 @@
     void ColorSensor::update() {
         tcs->getRawData(&r, &g, &b, &c);
 
+        Serial.print("r: ");
+        Serial.print(r);
+        Serial.print(", g: ");
+        Serial.print(g);
+        Serial.print(". b: ");
+        Serial.print(b);
+        Serial.print("c: ");
+        Serial.print(c);
+        Serial.println();
+                
+
         if (c > 600) {
             current_color = NONE;
         }
