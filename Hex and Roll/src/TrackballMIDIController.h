@@ -6,13 +6,11 @@
 #define NUM_UNITS 3
 
 // pin definitions
-#define LED_CS_PIN 2
+#define LED_CS_PIN 30
 
 // min and max values for scaled instrument and effect values (after mapping from encoder raw counts)
-#define MIN_INSTR_VAL 0
-#define MAX_INSTR_VAL 127
-#define MIN_EFFECT_VAL 0
-#define MAX_EFFECT_VAL 127
+#define MIN_MIDI_VAL 0
+#define MAX_MIDI_VAL 127
 
 class TrackballMIDIController {
 public:
@@ -29,7 +27,7 @@ private:
 
   TrackballUnit units[NUM_UNITS];
 
-  uint16_t cc[NUM_UNITS] = {25, 26, 27};
+  uint8_t cc[NUM_UNITS] = {10, 20, 30};
   
   void cleanup();
 };

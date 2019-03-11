@@ -34,6 +34,10 @@ void TrackballUnit::setup(uint16_t *encoder_pins, i2c_t3 *theWire) {
     cc_midi = 0;
 }
 
+void TrackballUnit::setup(uint16_t *encoder_pins, i2c_t3 *theWire, int threshold_multiplier) {
+    setup(encoder_pins, theWire);
+    cs.setThresholdMultiplier(threshold_multiplier);
+}
 
 void TrackballUnit::update() {
   updateAllEncoders();
@@ -46,6 +50,10 @@ TrackballUnit::UnitData TrackballUnit::getData() {
 
 uint16_t TrackballUnit::getCC() {
     return cc_midi;
+}
+
+void TrackballUnit::setCC(uint8_t new_cc) {
+    cc_midi = new_cc;
 }
 
 void TrackballUnit::updateAllEncoders() {

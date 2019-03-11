@@ -20,10 +20,11 @@ public:
   ~TrackballUnit(){cleanup();};
 
   void setup(uint16_t *encoder_pins, i2c_t3 *theWire);  // encoder_pins should contain 2 balls * 2 enc/ball * 2 pins/enc = 8 elements;
+  void setup(uint16_t *encoder_pins, i2c_t3 *theWire, int threshold_multiplier);  // encoder_pins should contain 2 balls * 2 enc/ball * 2 pins/enc = 8 elements;
   void update();
   UnitData getData();
+  void setCC(uint8_t new_cc);
   uint16_t getCC();
-
 
 private:
 
