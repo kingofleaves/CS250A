@@ -103,26 +103,6 @@ void TrackballMIDIController::sendMidiMessage() {
 
     usbMIDI.sendControlChange(color_midi_cc, color_midi_val, 0);
 
-    // Serial.print("Color midi command: ");
-    // Serial.print(color_midi_cc);
-    // Serial.print(", ");
-    // Serial.print(color_midi_val);
-    // Serial.print(", from unit number: ");
-    // Serial.println(unit_index); 
-
-    // Serial.println(curr_data.color_value);
-    // Serial.print(curr_data.encoder_positions[0][0]);
-    // Serial.print(", ");
-    // Serial.print(curr_data.encoder_positions[0][1]);
-    // Serial.print(", ");
-    // Serial.print(curr_data.encoder_positions[1][0]);
-    // Serial.print(", ");
-    // Serial.println(curr_data.encoder_positions[1][1]);
-
-    // usbMIDI.sendControlChange(cc[unit_index], final_value, 0);
-
-    
-
   }
 
 }

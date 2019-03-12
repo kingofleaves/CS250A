@@ -1,7 +1,8 @@
 #include "LEDController.h"
 
-void LEDController::setup(const int led_pin) { 
+void LEDController::setup(const int led_pin, const int led_pin2) { 
     FastLED.addLeds<NEOPIXEL, 2>(leds_array, NUM_LEDS); 
+    FastLED.addLeds<NEOPIXEL, 0>(leds_array2, NUM_LEDS2); 
 }
 
 void LEDController::update() {
@@ -53,6 +54,95 @@ void LEDController::setColorForBallCombination(CRGB color1, CRGB color2, CRGB co
             
         }
     }
+}
+
+void LEDController::setInnerColor(CRGB color1, CRGB color2, CRGB color3, int32_t *p1, int32_t *p2, int32_t *p3, int32_t *p4, int32_t *p5, int32_t *p6) {
+    for (int led_index = 0; led_index < NUM_LEDS; led_index++) {
+        if (led_index < END_LED2_1) {
+            int16_t r = color1.r; int16_t g = color1.g; int16_t b = color1.b;
+            uint8_t range_start = 0;
+            uint8_t range_end = END_LED2_1-1;
+            //uint8_t range1 = range_end-range_start;
+            uint8_t center = map(p1[0], -31,31,range_start,range_end);
+            //uint8_t dist = abs(led_index-center);
+            //uint8_t fade = map(p1[1], -63, 63,255, 0);
+            //r = r-dist*256; g = g-dist*256; b = b-dist*256;
+            if (led_index==center) { 
+                //if (r<0) r=0; if (g<0) g=0; if (b<0) b=0;
+                CRGB newColor = CRGB(r, g, b);
+                //newColor = newColor.fadeLightBy(fade);
+                leds_array2[led_index] = newColor;
+            } else {
+                leds_array2[led_index] = CRGB::Black;
+            }
+        }/* else if (led_index < END_LED2_2) {
+            int16_t r = (color1.r+color2.r)/2; int16_t g = (color1.g+color2.g)/2; int16_t b = (color1.b+color2.b)/2;
+            uint8_t range_start = END_LED2_1;
+            uint8_t range_end = END_LED2_2;
+            uint8_t range1 = range_end-range_start;
+            uint8_t center = range_start+map(p2[0], -63,63,range_start,range_end);
+            uint8_t dist = abs(led_index-center);
+            uint8_t fade = map(p2[1], -63, 63,255, 0);
+            r = r-dist*256/2; g = g-dist*256/2; b = b-dist*256/2;
+            if (r<0) r=0; if (g<0) g=0; if (b<0) b=0;
+            CRGB newColor = CRGB(r-dist*256/2, g-dist*256/2, b-dist*256/3);
+            newColor = newColor.fadeLightBy(fade);
+            leds_array2[led_index] = newColor;
+        } else if (led_index < END_LED2_3) {
+            int16_t r = color3.r; int16_t g = color3.g; int16_t b = color3.b;
+            uint8_t range_start = END_LED2_2;
+            uint8_t range_end = END_LED2_3;
+            uint8_t range1 = range_end-range_start;
+            uint8_t center = range_start+map(p3[1], -63,63,range_start,range_end);
+            uint8_t dist = abs(led_index-center);
+            uint8_t fade = map(p3[2], -63, 63,255, 0);
+            r = r-dist*256/2; g = g-dist*256/2; b = b-dist*256/2;
+            if (r<0) r=0; if (g<0) g=0; if (b<0) b=0;
+            CRGB newColor = CRGB(r-dist*256/2, g-dist*256/2, b-dist*256/3);
+            newColor = newColor.fadeLightBy(fade);
+            leds_array2[led_index] = newColor;
+        } else if (led_index < END_LED2_4) {
+            int16_t r = (color2.r+color3.r)/2; int16_t g = (color2.g+color3.g)/2; int16_t b = (color2.b+color3.b)/2;
+            uint8_t range_start = END_LED2_3;
+            uint8_t range_end = END_LED2_4;
+            uint8_t range1 = range_end-range_start;
+            uint8_t center = range_start+map(p4[1], -63,63,range_start,range_end);
+            uint8_t dist = abs(led_index-center);
+            uint8_t fade = map(p4[2], -63, 63,255, 0);
+            r = r-dist*256/2; g = g-dist*256/2; b = b-dist*256/2;
+            if (r<0) r=0; if (g<0) g=0; if (b<0) b=0;
+            CRGB newColor = CRGB(r-dist*256/2, g-dist*256/2, b-dist*256/3);
+            newColor = newColor.fadeLightBy(fade);
+            leds_array2[led_index] = newColor;
+        } else if (led_index < END_LED_5) {
+            int16_t r = color3.r; int16_t g = color3.g; int16_t b = color3.b;
+            uint8_t range_start = END_LED2_4;
+            uint8_t range_end = END_LED2_5;
+            uint8_t range1 = range_end-range_start;
+            uint8_t center = range_start+map(p5[1], -63,63,range_start,range_end);
+            uint8_t dist = abs(led_index-center);
+            uint8_t fade = map(p5[2], -63, 63,255, 0);
+            r = r-dist*256/2; g = g-dist*256/2; b = b-dist*256/2;
+            if (r<0) r=0; if (g<0) g=0; if (b<0) b=0;
+            CRGB newColor = CRGB(r-dist*256/2, g-dist*256/2, b-dist*256/3);
+            newColor = newColor.fadeLightBy(fade);
+            leds_array2[led_index] = newColor;
+        } else if (led_index < END_LED_6) {            
+            int16_t r = (color3.r+color1.r)/2; int16_t g = (color3.g+color1.g)/2; int16_t b = (color3.b+color1.b)/2;
+            uint8_t range_start = END_LED2_5;
+            uint8_t range_end = END_LED2_6;
+            uint8_t range1 = range_end-range_start;
+            uint8_t center = range_start+map(p6[1], -63,63,range_start,range_end);
+            uint8_t dist = abs(led_index-center);
+            uint8_t fade = map(p6[2], -63, 63,255, 0);
+            r = r-dist*256/2; g = g-dist*256/2; b = b-dist*256/2;
+            if (r<0) r=0; if (g<0) g=0; if (b<0) b=0;
+            CRGB newColor = CRGB(r-dist*256/2, g-dist*256/2, b-dist*256/3);
+            newColor = newColor.fadeLightBy(fade);
+            leds_array2[led_index] = newColor;            
+        }*/
+    }
+
 }
 
 void LEDController::setBrightness(int brightness) {
