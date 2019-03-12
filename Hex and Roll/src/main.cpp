@@ -31,7 +31,7 @@ void loop() {
   controller.update();
   // delay(1000);
   int pulse = map(curTime % 469,0,468,0,100);
-  leds.setBrightness(200-pulse);
+  leds.setBrightness(255-pulse);
 
   if(curTime>midiTimer+lastMidi) {
     controller.sendMidiMessage();
