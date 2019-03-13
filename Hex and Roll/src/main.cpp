@@ -31,7 +31,7 @@ void loop() {
   controller.update();
   // delay(1000);
   int pulse = map(curTime % 469,0,468,0,100);
-  leds.setBrightness(255-pulse);
+  //leds.setBrightness(255-pulse);
 
   if(curTime>midiTimer+lastMidi) {
     controller.sendMidiMessage();
@@ -46,10 +46,10 @@ void setLedsToBalls() {
   CRGB color_array[NUM_UNITS];
   int32_t positions[2*NUM_UNITS][2];
   for (int unit_index = 0; unit_index < NUM_UNITS; unit_index++) {
-    positions[2*(unit_index+1)-1][0] = data[unit_index].encoder_positions[0][0];
-    positions[2*(unit_index+1)][1] = data[unit_index].encoder_positions[0][1];
-    positions[2*(unit_index+1)-1][0] = data[unit_index].encoder_positions[1][0];
-    positions[2*(unit_index+1)][1] = data[unit_index].encoder_positions[1][1];
+    positions[unit_index][0] = data[unit_index].encoder_positions[0][1];
+    positions[unit_index][1] = data[unit_index].encoder_positions[0][0];
+    positions[unit_index+3][0] = data[unit_index].encoder_positions[1][1];
+    positions[unit_index+3][1] = data[unit_index].encoder_positions[1][0];
     switch (data[unit_index].color_value) {
       case ColorSensor::NONE : 
         color_array[unit_index] = CRGB::White;
@@ -73,7 +73,7 @@ void setLedsToBalls() {
     }
   }
   leds.setColorForBallCombination(color_array[0], CRGB(230,128,10), color_array[2], CRGB(230,128,10), color_array[1], CRGB(230,128,10));
-  leds.setInnerColor(color_array[0],color_array[2],color_array[1], positions[1], positions[2], positions[3], positions[4], positions[5], positions[6]);
+  leds.setInnerColor(color_array[0],color_array[2],color_array[1], positions[1], positions[2], positions[3], positions[4], positions[5], positions[0]);
   // leds.setColorUpTo(156,CRGB(230,128,10));
   
 
