@@ -37,6 +37,7 @@ void setColorUpTo(int end_led, CRGB color);
 void setColorForBallCombination(CRGB color1, CRGB color2, CRGB color3, CRGB color4, CRGB color5, CRGB color6);
 void setBrightness(int brightness);
 void setInnerColor(CRGB Color1, CRGB Color2, CRGB Color3, int32_t *p1, int32_t *p2, int32_t *p3, int32_t *p4, int32_t *p5, int32_t *p6);
+void setColorIndicators(CRGB *colors, uint8_t indicator_pos[][2]); // array of [6] colors and array of [6][2] indicator positions as inputs
 
 private:
 CRGB leds_array[NUM_LEDS];
