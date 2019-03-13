@@ -43,37 +43,60 @@ void loop() {
 
 void setLedsToBalls() {
   TrackballUnit::UnitData *data = controller.getData();
-  CRGB color_array[NUM_UNITS];
-  int32_t positions[2*NUM_UNITS][2];
+  CRGB color_array[NUM_UNITS * NUM_BALLS];
+  uint8_t positions[NUM_UNITS * NUM_BALLS][NUM_ENCODERS_PER_BALL];
   for (int unit_index = 0; unit_index < NUM_UNITS; unit_index++) {
-    positions[2*(unit_index+1)-1][0] = data[unit_index].encoder_positions[0][0];
-    positions[2*(unit_index+1)][1] = data[unit_index].encoder_positions[0][1];
-    positions[2*(unit_index+1)-1][0] = data[unit_index].encoder_positions[1][0];
-    positions[2*(unit_index+1)][1] = data[unit_index].encoder_positions[1][1];
+    for (int ball_index = 0; ball_index < NUM_BALLS; ball_index++) {
+      for (int enc_index = 0; enc_index < NUM_ENCODERS_PER_BALL; enc_index++) {
+        int32_t enc_pos = data[unit_index].encoder_positions[ball_index][enc_index];
+        uint8_t indicator_pos = map(enc_pos, MIN_ENC_POS, MAX_ENC_POS, leds.end_led2_array[unit_index*2 + ball_index],  leds.end_led2_array[unit_index*2 + ball_index+1]);
+        positions[unit_index*NUM_BALLS + ball_index][enc_index] = indicator_pos;
+      }
+    }
+
+    CRGB curr_color; 
     switch (data[unit_index].color_value) {
       case ColorSensor::NONE : 
-        color_array[unit_index] = CRGB::White;
+        curr_color = CRGB::White;
         break;
       
       case ColorSensor::RED : 
-        color_array[unit_index] = CRGB::Red;
+        curr_color = CRGB::Red;
         break;
       
       case ColorSensor::BLUE : 
-        color_array[unit_index] = CRGB::Blue;
+        curr_color = CRGB::Blue;
         break;
         
       case ColorSensor::GREEN : 
-        color_array[unit_index] = CRGB::Green;
+        curr_color = CRGB::Green;
         break;
       
       case ColorSensor::YELLOW : 
-        color_array[unit_index] = CRGB::Yellow;
+        curr_color = CRGB::Yellow;
         break;
     }
+    color_array[unit_index*2] = curr_color;
   }
-  leds.setColorForBallCombination(color_array[0], CRGB(230,128,10), color_array[2], CRGB(230,128,10), color_array[1], CRGB(230,128,10));
-  leds.setInnerColor(color_array[0],color_array[2],color_array[1], positions[1], positions[2], positions[3], positions[4], positions[5], positions[6]);
+  for (int unit_index = 0; unit_index < NUM_UNITS; unit_index++) {
+    color_array[unit_index*2+1] = color_array[unit_index*2]/2 + color_array[(unit_index*2+2)%6]/2;
+  }
+  // The for loop above does the following 3 lines: 
+  // color_array[1] = color_array[0]/2 + color_array[2]/2;
+  // color_array[3] = color_array[0]/2 + color_array[2]/2;
+  // color_array[5] = color_array[4]/2 + color_array[0]/2;
+
+  leds.setColorForBallCombination(color_array[0], color_array[5], color_array[4], color_array[3], color_array[2], color_array[1]);
+  // leds.setColorIndicators(color_array, positions);
+  
+  // leds.setInnerColor(color_array[0],color_array[2],color_array[1], 
+  //   data[0].encoder_positions[0], 
+  //   data[0].encoder_positions[1], 
+  //   data[1].encoder_positions[0], 
+  //   data[1].encoder_positions[1],     
+  //   data[2].encoder_positions[0], 
+  //   data[2].encoder_positions[1]);
+  
   // leds.setColorUpTo(156,CRGB(230,128,10));
   
 
