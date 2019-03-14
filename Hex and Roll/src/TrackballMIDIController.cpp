@@ -58,7 +58,7 @@ void TrackballMIDIController::sendMidiMessage() {
         if (curr_enc_val == prev_data[unit_index].encoder_positions[ball_index][encoder_index]) continue;
         prev_data[unit_index].encoder_positions[ball_index][encoder_index] = curr_enc_val;
 
-        uint8_t curr_midi_val = map(curr_enc_val, MIN_ENC_POS, MAX_ENC_POS, MIN_MIDI_VAL, MAX_MIDI_VAL);
+        uint8_t curr_midi_val = map(curr_enc_val, MIN_ENC_POS, MAX_ENC_POS, MAX_MIDI_VAL, MIN_MIDI_VAL);
         int curr_cc = cc[unit_index] + ball_index*2 + encoder_index;
         usbMIDI.sendControlChange(curr_cc, curr_midi_val, 0);
 
