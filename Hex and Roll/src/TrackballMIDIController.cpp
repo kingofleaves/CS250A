@@ -31,7 +31,7 @@ void TrackballMIDIController::setup(uint16_t *encoder_pins0, uint16_t *encoder_p
   }
   // Set LED brightness for all Color Sensors
   pinMode(LED_CS_PIN, OUTPUT);
-  analogWrite(LED_CS_PIN, 20);
+  analogWrite(LED_CS_PIN, 255);
 }
 
 

@@ -30,8 +30,8 @@ void loop() {
   // Serial.println("-----------------------------------------");
   controller.update();
   // delay(1000);
-  int pulse = map(curTime % 469,0,468,0,100);
-  leds.setBrightness(255-pulse);
+  int pulse = map(curTime % 469,0,468,0,50);
+  leds.setBrightness(205-pulse);
 
   if(curTime>midiTimer+lastMidi) {
     controller.sendMidiMessage();
